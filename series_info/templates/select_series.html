@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post">
+        <label>Series slug
+            <input type="text" name="series"></label>
+        <input type="submit">
+    </form>
+    {% if provider.has_search %}
+        <form class="d-flex" role="search" method="post" action="/{{ provider.slug }}/search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                   name="search"/>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    {% endif %}
+    <ul>
+        {% for slug,series in recent %}
+            <li><a href="/{{ provider.slug }}/{{ slug }}">{{ Series }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

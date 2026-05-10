@@ -1,0 +1,20 @@
+{% if series.banner -%}
+    [img]{{ series.banner }}[/img]
+{%- else -%}
+    [b]{{ series.title }}[/b]
+{%- endif %}
+{% if series.description -%}
+    {{ series.description }}
+{%- endif %}
+
+{% for episode in episodes %}
+    {%- if episode.url -%}
+        [url={{ episode.url }}]{{ episode.episode_number }}[/url]
+    {%- else -%}
+        [b]{{ episode.episode_number }}[/b]
+    {%- endif %}
+    {%- if episode.description %}
+{{ episode.description }}
+    {%- endif %}
+
+{% endfor %}

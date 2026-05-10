@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table">
+        {% for key, provider in providers.items() %}
+            <tr>
+                <td><a href="/{{ key }}">{{ provider.name }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

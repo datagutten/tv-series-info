@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+    {#    <script>
+        $.when($.ready).then(function () {
+            $(".episode").each(function () {
+                let episode_id = this.getAttribute('data-episode-id')
+                let episode_url = this.getAttribute('data-episode-url')
+                let series_slug = this.getAttribute('data-series-slug')
+                let prodCode_element = $('.prodCode[data-episode-id]', this)
+                prodCode_element.load('ajax.php?field=production_code&episode_id=' + episode_id + '&series_slug=' + series_slug)
+            })
+        });
+    </script>#}
+{% endblock %}
+{% block nav_bar %}
+
+{% endblock %}
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Original title</th>
+            <th>Copy</th>
+            <th>Production code</th>
+            <th>First aired</th>
+            <th>Episode image</th>
+        </tr>
+        </thead>
+        {% for episode in episodes %}
+            <tr class="episode" data-episode-id="{{ episode.id }}" data-episode-url="{{ episode.url }}"
+                data-series-slug="{{ episode.series_slug }}">
+                <td>
+                    {% if episode.description==None and episode.translation_url %}
+                        <a href="{{ episode.translation_url }}">{{ episode.series }} {{ episode.episode_number() }}</a>
+                    {% else %}
+                        <p>
+                            <a href="{{ episode.url }}">{{ episode.series }} {{ episode.episode_number() }}</a>
+                        </p>
+                        {% if episode.description %}
+                            <p>{{ episode.description.replace('\n', '<br>')|safe }}</p>
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>{{ episode.original_title or "" }}</td>
+                <td><input value="{{ episode.episode_number() }}"/><br/>
+                    <input value="{{ episode.series }} {{ episode.episode_number() }}"/>
+                </td>
+                {% if episode.production_code != None %}
+                    <td class="prodCode" data-episode-id="{{ episode.id }}">{{ episode.production_code }}</td>
+                {% else %}
+                    <td class="prodCode" data-episode-id="{{ episode.id }}"></td>
+                {% endif %}
+                {% if episode.date != None %}
+                    <td>{{ episode.date }}</td>
+                {% else %}
+                    <td class="date"></td>
+                {% endif %}
+                {#                {% if episode.episode_alternate !=None %}#}
+                {#                    <td>{{ episode.episode_alternate }}</td>#}
+                {#                {% else %}#}
+                {#                    <td></td>#}
+                {#                {% endif %}#}
+                {% if episode.image !=None %}
+                    <td><img src="{{ episode.image }}" style="max-width: 200px" alt="Episode image"/></td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+            </tr>
+
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,30 @@
+                {% if provider.has_translations and series is defined %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Language
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for key, language in series.languages.items() %}
+                                <li><a class="dropdown-item"
+                                       href="?language={{ key }}&order={{ request.args.get('order', 'default') }}">{{ language }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+                {% if provider.has_orders and series is defined %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Order
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for key, order in series.orders.items() %}
+                                <li><a class="dropdown-item"
+                                       href="?language={{ request.args.get('language', 'default') }}&order={{ key }}">{{ order }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}

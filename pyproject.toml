@@ -1,0 +1,31 @@
+[project]
+name = "series_info"
+version = "0.1.1"
+description = ""
+authors = [
+    { name = "Anders Birkenes", email = "datagutten@datagutten.net" }
+]
+
+requires-python = ">=3.11,<4"
+dependencies = [
+    "requests (>=2.32.3,<3.0.0)",
+    "lxml (>=5.4.0,<6.0.0)",
+    "video-tools @ git+https://github.com/datagutten/video-tools-py.git",
+    "requests-cache (>=1.2.1,<2.0.0)",
+    "tvdb-v4-official (>=1.1.0,<2.0.0)",
+    "langcodes[data] (>=3.5.1,<4.0.0)",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.web.dependencies]
+gunicorn = "^23.0.0"
+flask = "^3.1.1"
+
+
+[tool.poetry.group.disney.dependencies]
+pydisney = {git = "https://github.com/pam-param-pam/Disney-Plus-api-wrapper"}
+

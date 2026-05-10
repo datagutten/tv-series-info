@@ -1,0 +1,16 @@
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Year</th>
+        <th>Description</th>
+        <th>Image</th>
+    </tr>
+    {% for series in series_list %}
+        <tr>
+            <td><a href="/{{ provider.slug }}/{{ series.slug }}">{{ series.title }}</a></td>
+            <td>{{ series.year or '' }}</td>
+            <td>{{ series.description }}</td>
+            <td>{% if series.image %}<img src="{{ series.image }}" alt="Series image">{% endif %}</td>
+        </tr>
+    {% endfor %}
+</table>
