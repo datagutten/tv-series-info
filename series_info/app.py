@@ -99,7 +99,8 @@ def season_bbcode(provider, series_slug: str, season: int = None):
     if season is not None:
         episodes = [episode for episode in episodes if episode.season == season]
 
-    return stream_template("season_bbcode.j2", series=series, episodes=episodes, provider=obj)
+    response = stream_template("season_bbcode.j2", series=series, episodes=episodes, provider=obj)
+    return Response(response=response, status=200, mimetype="text/plain")
 
 
 @app.route("/<string:provider>/<string:series_slug>")
