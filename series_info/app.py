@@ -97,6 +97,8 @@ def season_bbcode(provider, series_slug: str, season: int = None):
     args = flask.request.args.to_dict()
     series = obj.series(series_slug, **args)
     episodes = obj.episodes(series_slug, **args)
+    series.title = episodes[0].series
+    series.year = episodes[0].year
     if season is not None:
         episodes = [episode for episode in episodes if episode.season == season]
 
