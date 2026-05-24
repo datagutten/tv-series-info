@@ -9,9 +9,9 @@
 
 {% for episode in episodes %}
     {%- if episode.url -%}
-        [url={{ episode.url }}]{{ episode.episode_number }}[/url]
+        [url={{ episode.url }}]{{ episode.episode_number() }}[/url]
     {%- else -%}
-        [b]{{ episode.episode_number }}[/b]
+        [b]{{ episode.episode_number() }}[/b]
     {%- endif %}
     {%- if episode.description %}
 {{ episode.description }}
