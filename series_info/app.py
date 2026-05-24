@@ -1,10 +1,9 @@
-import json
 import logging
 from typing import Type
 
 import flask
 import requests
-from flask import stream_template, request, redirect
+from flask import stream_template, request, redirect, Response
 
 from series_info import providers, data
 
@@ -46,7 +45,9 @@ def series_json(provider, series_slug: str):
     obj = provider_cls()
     args = flask.request.args.to_dict()
     series = obj.series(series_slug, **args)
-    return [series]
+    series_data = series.model_dump()
+    series_data['episodes'] = flask.url_for('episodes_json', provider=provider, series_slug=series_slug, **args)
+    return series_data
 
 
 @app.route("/<string:provider>/<string:series_slug>/episodes.json")
@@ -62,7 +63,7 @@ def episodes_json(provider, series_slug: str = None):
     except RuntimeError as e:
         return {'error': str(e)}
 
-    return episodes
+    return [episode.model_dump(exclude=['runtime_obj']) for episode in episodes]
 
 
 @app.route("/<string:provider>/<string:series_slug>/episode.json")
