@@ -133,7 +133,7 @@ def episodeguide(provider, series_slug: str = None):
         return flask.abort(404)
     episodes = obj.episodes(series_slug, **args)
 
-    return stream_template("episodeguide.html", episodes=episodes, series=series_info, provider=obj)
+    return stream_template("episodeguide.html", episodes=episodes, series=series_info, provider=obj, args=args)
 
 
 @app.route("/")

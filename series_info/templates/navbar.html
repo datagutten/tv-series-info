@@ -23,9 +23,16 @@
                 {% if provider is defined %}
                     {% include "includes/dropdowns.html" %}
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
+                {% if series is defined %}
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('episodes_json', provider=provider.slug, series_slug=series.slug, **args) }}">JSON</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('season_bbcode', provider=provider.slug, series_slug=series.slug, **args) }}">BBCode</a>
+                    </li>
+                {% endif %}
             </ul>
         {% if provider is defined %}
             <form class="d-flex" role="search" method="post" action="/{{ provider.slug }}/search">
