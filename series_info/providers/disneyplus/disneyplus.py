@@ -136,6 +136,7 @@ class DisneyPlus(Provider):
                     season = season.number + 1
 
                 episode_obj = DisneyPlusEpisode(
+                    artwork=episode.artwork,
                     id=episode.id,
                     series=hit.title,
                     season=season,
@@ -145,7 +146,8 @@ class DisneyPlus(Provider):
                     year=int(hit.startYear),
                     runtime_obj=datetime.timedelta(milliseconds=episode.durationMs),
                     image=image(episode.artwork['standard']['thumbnail']['1.78']['imageId']),
-                    url=f'https://www.disneyplus.com/play/{episode.id}'
+                    url=f'https://www.disneyplus.com/play/{episode.id}',
+                    resource_id=episode.resourceId,
                 )
 
                 episodes.append(episode_obj)
