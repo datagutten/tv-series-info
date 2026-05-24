@@ -129,7 +129,6 @@ class DisneyPlus(Provider):
         for season in hit.seasons:
             episode: models.Episode.Episode
             for episode in season.episodes:
-                # disney_episode_obj = DisneyEpisode(episode)
                 matches_epnum = re.search(r'S(\d+):E(\d+)', episode.fullEpisodeTitle)
                 if matches_epnum:
                     season = int(matches_epnum.group(1))
@@ -145,7 +144,6 @@ class DisneyPlus(Provider):
                     description=episode.full_description,
                     year=int(hit.startYear),
                     runtime_obj=datetime.timedelta(milliseconds=episode.durationMs),
-                    # runtime=int(episode.durationMs / 1000),
                     image=image(episode.artwork['standard']['thumbnail']['1.78']['imageId']),
                     url=f'https://www.disneyplus.com/play/{episode.id}'
                 )

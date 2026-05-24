@@ -141,11 +141,5 @@ def select_provider():
     return stream_template("select_provider.html", providers=providers.providers, title='Select provider')
 
 
-#
-# def search(provider):
-#     provider_cls = find_provider(provider)
-#     obj = provider_cls()
-
-
 if __name__ == "__main__":
     app.run()
