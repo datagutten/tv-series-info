@@ -15,7 +15,7 @@
                         <a class="nav-link active" aria-current="page" href="/{{ provider.slug }}">Select series</a>
                     </li>
                 {% endif %}
-                {% if series is defined %}
+                {% if series is defined and series.url %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ series.url }}">Link</a>
                     </li>
