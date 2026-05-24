@@ -1,29 +1,20 @@
-import dataclasses
+from typing import Optional
 
 from series_info.data import Episode, Series
 
 
-@dataclasses.dataclass
 class TVDBEpisode(Episode):
     id: int = None
     """
     TVDB id
     """
 
-    production_code: str = None
+    production_code: Optional[str] = None
 
-    image: str = None
+    image: Optional[str] = None
     """
     Episode image
     """
-
-    @property
-    def url(self):
-        return 'https://thetvdb.com/series/%s/episodes/%d' % (self.series_slug, self.id)
-
-    @url.setter
-    def url(self, value):
-        pass
 
     @property
     def translation_url(self):
@@ -31,7 +22,6 @@ class TVDBEpisode(Episode):
                                                                                     self.language)
 
 
-@dataclasses.dataclass
 class TVDBSeries(Series):
     id: int = None
     """

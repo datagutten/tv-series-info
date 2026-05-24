@@ -97,7 +97,7 @@ class TVDB(Provider):
                 production_code=episode.get('production_code'),
                 season_name=episode.get('seasonName'),
                 year=episode.get('year'),
-                # url='https://thetvdb.com/series/%s/episodes/%d' % (slug, episode['id']),
+                url='https://thetvdb.com/series/%s/episodes/%d' % (slug, episode['id']),
                 language=language,
             )
 

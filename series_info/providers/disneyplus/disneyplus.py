@@ -22,6 +22,10 @@ from pydisney.models.Hit import Hit
 from .objects import DisneyPlusEpisode, DisneyPlusSeries
 
 
+def image(image_id: str, width: int = 300):
+    return f'https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/{image_id}/compose?width={width}'
+
+
 class DisneyPlus(Provider):
     # has_translations = True
     has_search = True
@@ -66,7 +70,7 @@ class DisneyPlus(Provider):
         for key, value in hit.items():
             if key == 'imageId':
                 path = base_path
-                url = 'https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/%s/compose?width=300' % value
+                url = image(value)
                 response = self._session.get(url)
                 path.mkdir(parents=True, exist_ok=True)
                 path = path.joinpath(value).with_suffix('.png')
@@ -110,7 +114,7 @@ class DisneyPlus(Provider):
             slug=hit.id,
             id=hit.id,
             year=int(hit.startYear),
-            image=hit.artwork['standard']['tile']['1.00']['imageId'],
+            image=image(hit.artwork['standard']['tile']['1.00']['imageId']),
             title=hit.title,
         )
         return series_obj
@@ -142,7 +146,8 @@ class DisneyPlus(Provider):
                     year=int(hit.startYear),
                     runtime_obj=datetime.timedelta(milliseconds=episode.durationMs),
                     # runtime=int(episode.durationMs / 1000),
-                    image=episode.artwork['standard']['thumbnail']['1.78']['imageId'],
+                    image=image(episode.artwork['standard']['thumbnail']['1.78']['imageId']),
+                    url=f'https://www.disneyplus.com/play/{episode.id}'
                 )
 
                 episodes.append(episode_obj)

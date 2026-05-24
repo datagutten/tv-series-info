@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import dataclasses
 import datetime
 import os
 from pathlib import Path
@@ -8,11 +7,11 @@ from typing import Optional
 
 import requests
 import requests_cache
+from pydantic import BaseModel
 from video_tools import EpisodeFormat
 
 
-@dataclasses.dataclass
-class Episode(EpisodeFormat):
+class Episode(BaseModel, EpisodeFormat):
     # series: str | None = None
     # """
     # Series name
@@ -103,14 +102,13 @@ class Provider:
         raise NotImplementedError
 
     def series(self, slug: str, **kwargs) -> Series:
-        return Series(slug, **kwargs)
+        return Series(slug=slug, **kwargs)
 
     def search(self, search: str, language='en') -> list[Series]:
         raise NotImplementedError
 
 
-@dataclasses.dataclass
-class Series:
+class Series(BaseModel):
     slug: str
     """Slug for use in urls"""
     title: str | None = None

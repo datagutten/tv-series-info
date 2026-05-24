@@ -5,8 +5,8 @@ import warnings
 import lxml.html
 
 from series_info.data import Episode, Provider, Series
-from .utils import parse_season_episode
 from . import utils
+from .utils import parse_season_episode
 
 
 class NRKMeta(Provider):
@@ -23,7 +23,7 @@ class NRKMeta(Provider):
             slug=slug,
             title=series[series_type]['titles']['title'],
             description=series[series_type]['titles']['subtitle'],
-            image=series[series_type]['image'][-1],
+            image=series[series_type]['image'][-1]['url'],
             url='https://psapi.nrk.no' + series['_links']['self']['href'],
         )
 
@@ -58,7 +58,7 @@ class NRKMeta(Provider):
                     year=episode_info['productionYear'],
                     original_title=episode_info['originalTitle'],
                     # runtime_obj=parse_iso8601_duration(episode_info['duration']),
-                    date=utils.parse_date(program['firstTimeTransmitted']['actualTransmissionDate']),
+                    date=utils.parse_date(program['firstTimeTransmitted']['actualTransmissionDate']).date(),
                     image=program['image']['webImages'][-1]['imageUrl'],
                     description=program['shortDescription'],
                     url=program['_links']['share']['href'],
