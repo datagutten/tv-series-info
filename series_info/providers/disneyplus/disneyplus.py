@@ -137,7 +137,7 @@ class DisneyPlus(Provider):
                     season = season.number + 1
 
                 episode_obj = DisneyPlusEpisode(
-                    id=hit.id,
+                    id=episode.id,
                     series=hit.title,
                     season=season,
                     episode=int(episode.episodeNumber),
