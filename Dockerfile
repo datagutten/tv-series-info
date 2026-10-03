@@ -1,11 +1,10 @@
 FROM python:3.13 AS builder
 WORKDIR /home/app
-COPY pyproject.toml .
-COPY poetry.lock .
 
 RUN apt-get update && apt-get -y install git
 RUN pip install -U pip poetry
 RUN poetry self add poetry-plugin-export
+COPY pyproject.toml .
 RUN poetry export --without-hashes -f requirements.txt --output requirements.txt --with web --with disney && \
      pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.txt
 
