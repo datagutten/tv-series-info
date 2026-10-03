@@ -100,6 +100,8 @@ class TVDB(Provider):
                 url='https://thetvdb.com/series/%s/episodes/%d' % (slug, episode['id']),
                 language=language,
             )
+            if episode.get('runtime') is not None:
+                episode_obj.runtime_obj = datetime.timedelta(minutes=episode['runtime'])
 
             if episode['image'] is not None:
                 if episode['image'][0:4] == 'http':
